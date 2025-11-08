@@ -6,6 +6,7 @@ import os
 
 if __name__ == "__main__":
     state = st.session_state
+
     if "generator" not in state:
         state.generator = Generator(
             api_key = os.environ.get("OPENAI_API_KEY"),
@@ -16,7 +17,12 @@ if __name__ == "__main__":
     if "page" not in state:
         state.page = "generate"
         pass
+    
     if state.page == "generate":
+        # タイトルとサブタイトルを追加
+        st.title("Minstrel JP")
+        st.markdown("### 自動プロンプトエンジニアリングツール")
+        st.divider()  # 区切り線
         generate()
         pass
     elif state.page == "test":

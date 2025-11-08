@@ -47,19 +47,28 @@ module_func_dict = {
 ## LangGPTプロンプトを生成するページ
 def generate():
     state = st.session_state
-    ## ユーザーがタスクの基本的な説明を入力するためのテキストフィールド
-    col1, col2 = st.columns([8, 2])
-    with col1:
-        task = st.text_input("タスクの説明","",label_visibility="collapsed")
-        state.input = task ## 入力した文章をstateのinputに保存
-        pass
-    ## タスクを分析してモジュールを設定するボタン
-    with col2:
-        if st.button("1．タスク分析でモジュールを設定",type="primary"):
-            ## get_modules.pyでどのモジュールをオンにするかを設定する
+    
+    ## ステップ1: タスク入力とモジュール設定（カード化）
+    with st.container(border=True):
+        st.markdown("### 1️⃣ タスク分析")
+        st.markdown("タスクを入力してモジュールを自動設定")
+        
+        col1, col2 = st.columns([8, 2])
+        with col1:
+            task = st.text_input("タスクの説明", "", label_visibility="collapsed", placeholder="実行したいタスクを入力してください")
+            state.input = task
+        with col2:
+            analyze_button = st.button(
+                "分析開始",
+                type="primary",
+                use_container_width=True,
+                key="analyze_btn"
+            )
+        
+        if analyze_button:
             state.module_messages = [{"role": "user", "content": f"私がLLMに実行してほしいタスクは：{task}"}]
             state.modules = get_modules(state.generator, state.module_messages)
-            pass
+    
     with st.sidebar: ## サイドバー
         st.subheader("基本情報")
         state.role_name = st.text_input("役割","",help="例: 専門家、アシスタントなど")
@@ -91,6 +100,7 @@ def generate():
                 pass
             pass
         pass
+    
     if "modules" in state:
         if state.on_modules["examples"]: ## 「タスクのサンプル」モジュールがオンになったとき
             st.subheader("タスクのサンプルを提供してください：")
@@ -119,14 +129,29 @@ def generate():
                         st.text_area(module_name_dict[key],state[key],label_visibility="collapsed")
                         pass
             pass
-        ## モジュール生成とプロンプト合成ボタン
-        g,c = st.columns([1,1])
-        with g:
-            generate_button = st.button("2．モジュール内容を生成")
-            pass
-        with c:
-            compose_button = st.button("3．モジュールを合成してプロンプト作成")
-            pass
+        
+        ## ステップ2: モジュール生成（カード化）
+        with st.container(border=True):
+            st.markdown("### 2️⃣ モジュール生成")
+            st.markdown("選択したモジュールの内容を自動生成")
+            generate_button = st.button(
+                "生成開始",
+                type="primary",
+                use_container_width=True,
+                key="gen_btn"
+            )
+        
+        ## ステップ3: プロンプト作成（カード化）
+        with st.container(border=True):
+            st.markdown("### 3️⃣ プロンプト作成")
+            st.markdown("モジュールを統合してプロンプト完成")
+            compose_button = st.button(
+                "プロンプト作成",
+                type="primary",
+                use_container_width=True,
+                key="comp_btn"
+            )
+        
         ## モジュールを生成ボタンが押されたとき
         if generate_button:
             for key in state.modules.keys():
@@ -182,3 +207,15 @@ def generate():
                         state.page = "test"
                 pass
             st.rerun()
+
+st.set_page_config(
+     page_title="Minstrel JP",
+     page_icon="🤖",
+     layout="wide",
+    #  initial_sidebar_state="expanded",
+     menu_items={
+         'Get Help': 'https://www.extremelycoolapp.com/help',
+         'Report a bug': "https://www.extremelycoolapp.com/bug",
+         'About': "# This is a header. This is an *extremely* cool app!",
+     }
+ )

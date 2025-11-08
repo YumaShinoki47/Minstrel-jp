@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minstrel JP - 自動プロンプトエンジニアリングツール</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-text">Minstrel JP</span>
+            </div>
+            <nav class="nav">
+                <a href="#features">特徴</a>
+                <a href="#how-it-works">使い方</a>
+                <a href="#tech">技術</a>
+                <a href="https://github.com/YumaShinoki47/Minstrel-jp" target="_blank">GitHub</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ヒーローセクション -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Minstrel JP
+                </h1>
+                <p class="hero-subtitle">プロンプト作成を、もっと簡単に。もっと効果的に。</p>
+                <h2 class="hero-catchphrase">AIエージェントが、あなたの代わりに<br>最適なプロンプトを設計します。</h2>
+                <div class="hero-buttons">
+                    <a href="https://minstrel-jp-vcqhmlswdqoeacvbtfndtv.streamlit.app" class="btn btn-primary" target="_blank">今すぐ無料で始める</a>
+                    <a href="#how-it-works" class="btn btn-secondary">使い方を見る</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 問題提起セクション -->
+    <section class="problems">
+        <div class="container">
+            <h2 class="section-title">こんな悩みはありませんか？</h2>
+            <div class="problems-grid">
+                <div class="problem-item">
+                    <span class="problem-icon">❌</span>
+                    <p>プロンプトの書き方が<br>わからない</p>
+                </div>
+                <div class="problem-item">
+                    <span class="problem-icon">❌</span>
+                    <p>期待した結果が<br>得られない</p>
+                </div>
+                <div class="problem-item">
+                    <span class="problem-icon">❌</span>
+                    <p>毎回考えるのに<br>時間がかかる</p>
+                </div>
+                <div class="problem-item">
+                    <span class="problem-icon">❌</span>
+                    <p>専門知識が<br>ない</p>
+                </div>
+            </div>
+            <div class="solution-arrow">↓</div>
+            <div class="solution-text">
+                <span class="solution-icon">✅</span>
+                <span>Minstrel JPが解決します</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特徴セクション -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Minstrel JPの3つの特徴</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AIエージェントによる自動分析</h3>
+                    <p>タスクを入力するだけで、6つのAIエージェントが最適なプロンプト構造を自動設計します。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧩</div>
+                    <h3>モジュール式プロンプト設計</h3>
+                    <p>11種類のモジュール（背景、目標、制約など）を組み合わせて構造化されたプロンプトを生成します。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>反復改善システム</h3>
+                    <p>Commentator & Reflectorエージェントが、多角的に分析して自動改善します。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 使い方セクション -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">簡単3ステップで高品質なプロンプトを生成</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-icon">📝</div>
+                        <h3>タスクを入力</h3>
+                        <p>「商品レビューを分析したい」など、やりたいことを自然な文章で入力します。</p>
+                    </div>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-icon">⚙️</div>
+                        <h3>モジュール生成</h3>
+                        <p>AIが自動でプロンプトの構成要素を生成。必要に応じて手動調整も可能です。</p>
+                    </div>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-icon">✨</div>
+                        <h3>プロンプト完成</h3>
+                        <p>統合されたプロンプトをテストして、さらに改善サイクルを回すことも可能です。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技術セクション -->
+    <section id="tech" class="tech">
+        <div class="container">
+            <h2 class="section-title">6つのAIエージェントが連携</h2>
+            <div class="agents-flow">
+                <div class="agent-box">
+                    <h4>Analyzer</h4>
+                    <p>タスク要求を分析</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="agent-box">
+                    <h4>Designer</h4>
+                    <p>プロンプト内容を生成</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="agent-box">
+                    <h4>Simulator</h4>
+                    <p>プロンプトをテスト実行</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="agent-box">
+                    <h4>Questioner</h4>
+                    <p>改善点を抽出</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="agent-box">
+                    <h4>Commentator</h4>
+                    <p>多角的に評価<br><small>(批判×2、好意×2、中立×1)</small></p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="agent-box">
+                    <h4>Reflector</h4>
+                    <p>フィードバック反映</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- モジュールセクション -->
+    <section class="modules">
+        <div class="container">
+            <h2 class="section-title">11種類のプロンプトモジュール</h2>
+            <div class="modules-grid">
+                <div class="module-item">✓ 背景（Background）</div>
+                <div class="module-item">✓ 命令（Command）</div>
+                <div class="module-item">✓ 提案（Suggestion）</div>
+                <div class="module-item">✓ 目標（Goal）</div>
+                <div class="module-item">✓ サンプル（Examples）</div>
+                <div class="module-item">✓ 制約（Constraints）</div>
+                <div class="module-item">✓ ワークフロー（Workflow）</div>
+                <div class="module-item">✓ 出力形式（Output Format）</div>
+                <div class="module-item">✓ スキル（Skills）</div>
+                <div class="module-item">✓ スタイル（Style）</div>
+                <div class="module-item">✓ 初期化（Initialization）</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ユースケースセクション -->
+    <section class="usecases">
+        <div class="container">
+            <h2 class="section-title">こんな用途に使えます</h2>
+            <div class="usecases-grid">
+                <div class="usecase-card">
+                    <div class="usecase-icon">📊</div>
+                    <h3>データ分析</h3>
+                    <p>プロンプト作成</p>
+                </div>
+                <div class="usecase-card">
+                    <div class="usecase-icon">📝</div>
+                    <h3>コンテンツ生成</h3>
+                    <p>プロンプト設計</p>
+                </div>
+                <div class="usecase-card">
+                    <div class="usecase-icon">🎓</div>
+                    <h3>教育・学習用</h3>
+                    <p>プロンプト開発</p>
+                </div>
+                <div class="usecase-card">
+                    <div class="usecase-icon">💼</div>
+                    <h3>ビジネス文書</h3>
+                    <p>作成支援</p>
+                </div>
+                <div class="usecase-card">
+                    <div class="usecase-icon">🔬</div>
+                    <h3>研究・調査用</h3>
+                    <p>プロンプト構築</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技術スタック -->
+    <section class="tech-stack">
+        <div class="container">
+            <h2 class="section-title">使用技術</h2>
+            <div class="tech-items">
+                <div class="tech-item">
+                    <span class="tech-emoji">🐍</span>
+                    <span>Python 3.10</span>
+                </div>
+                <div class="tech-item">
+                    <span class="tech-emoji">🤖</span>
+                    <span>GPT-4o (OpenAI)</span>
+                </div>
+                <div class="tech-item">
+                    <span class="tech-emoji">🎨</span>
+                    <span>Streamlit</span>
+                </div>
+                <div class="tech-item">
+                    <span class="tech-emoji">📚</span>
+                    <span>参考論文: arXiv:2409.13449</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2 class="cta-title">今すぐ始めましょう</h2>
+            <p class="cta-text">無料で利用可能（要OpenAI APIキー）</p>
+            <div class="cta-buttons">
+                <a href="https://minstrel-jp-vcqhmlswdqoeacvbtfndtv.streamlit.app" class="btn btn-primary btn-large" target="_blank">アプリを開く</a>
+                <a href="https://github.com/YumaShinoki47/Minstrel-jp" class="btn btn-secondary btn-large" target="_blank">GitHubで見る</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">Created by YumaShinoki47</p>
+            <p class="footer-text">Based on research: <a href="https://arxiv.org/abs/2409.13449" target="_blank">arXiv:2409.13449</a></p>
+            <div class="footer-links">
+                <a href="https://github.com/YumaShinoki47/Minstrel-jp" target="_blank">GitHub</a>
+                <a href="https://github.com/YumaShinoki47/Minstrel-jp/blob/main/README.md" target="_blank">Documentation</a>
+            </div>
+            <p class="footer-copyright">© 2024 Minstrel JP</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
