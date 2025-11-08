@@ -1,4 +1,4 @@
-# Minstrel: 自動プロンプトエンジニアリングツール
+# Minstrel-JP: 自動プロンプトエンジニアリングツール
 
 
 ## 使用方法
@@ -25,7 +25,7 @@
 
 3.  OpenAI APIキーを設定します。
 
-    Minstrel は OpenAI の GPT-4o モデルを使用します。OpenAI の API キーを取得し、環境変数に設定してください。
+    Minstrel-JP は OpenAI の GPT-4o モデルを使用します。OpenAI の API キーを取得し、環境変数に設定してください。
 
     ```bash
     export OPENAI_API_KEY="OPENAI_API_KEY"
@@ -49,11 +49,11 @@
 
 ## 概要
 
-Minstrelは、生成AIへのプロンプト改善を自動化するプロンプトエンジニアリングツールです。ユーザーのタスク要求を分析し、プロンプトフレームワークで定義されたモジュールと要素に基づいて、適切なプロンプトを自動生成します。
+Minstrel-JPは、生成AIへのプロンプト改善を自動化するプロンプトエンジニアリングツールです。ユーザーのタスク要求を分析し、プロンプトフレームワークで定義されたモジュールと要素に基づいて、適切なプロンプトを自動生成します。
 
 [<img src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3625313/db17fa02-8aad-4e8e-ac52-ad533f3aa215.png" width="400">](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3625313/db17fa02-8aad-4e8e-ac52-ad533f3aa215.png)
 
-Minstrelは、以下のAIエージェントが連携して動作します。
+Minstrel-JPは、以下のAIエージェントが連携して動作します。
 
 *   **Analyzer**: ユーザーのタスク要求を分析し、必要なプロンプトモジュールを特定します。
 *   **Designer**: 特定されたモジュールに基づいて、プロンプトの具体的な内容を生成します。
@@ -68,3 +68,5 @@ Minstrelは、以下のAIエージェントが連携して動作します。
 *   **生成AI**: GPT-4o (OpenAI)
 *   **フレームワーク**: Streamlit
 
+## 参考
+https://arxiv.org/abs/2409.13449#
