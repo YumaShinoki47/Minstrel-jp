@@ -2,7 +2,7 @@ from openai import OpenAI
 
 ##文章を入力としてAIモデルからの応答を生成して出力するクラス
 class Generator:
-    def __init__(self, api_key, base_url):
+    def __init__(self, api_key, base_url): ###
         self.client = OpenAI(
             api_key=api_key,
             base_url=base_url
