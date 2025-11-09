@@ -19,10 +19,6 @@ if __name__ == "__main__":
         pass
     
     if state.page == "generate":
-        # タイトルとサブタイトルを追加
-        st.title("Minstrel JP")
-        st.markdown("### 自動プロンプトエンジニアリングツール")
-        st.divider()  # 区切り線
         generate()
         pass
     elif state.page == "test":
