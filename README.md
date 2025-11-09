@@ -74,24 +74,6 @@ Minstrel-JPは、生成AIへのプロンプト作成を自動化するプロン�
     streamlit run app.py
     ```
 
-5.  ブラウザで開かれたアプリケーションで以下の手順を実行します。
-
-    - サイドバーで基本情報（役割、作成者、バージョン、概要）を入力
-    - ステップ1でタスクを入力し、「分析開始」をクリック
-    - ステップ2で右側のモジュール制御パネルで必要なモジュールを選択し、「生成開始」をクリック
-    - ステップ3で「プロンプト作成」をクリックして最終的なプロンプトを生成
-
-## システムアーキテクチャ
-
-Minstrel-JPは、以下のAIエージェントが連携して動作します。
-
-*   **Analyzer**: ユーザーのタスク要求を分析し、必要なプロンプトモジュールを特定
-*   **Designer**: 特定されたモジュールに基づいて、プロンプトの具体的な内容を生成
-*   **Simulator**: 生成されたプロンプトをテストし、期待される出力を生成
-*   **Questioner**: シミュレーション結果に基づいて、プロンプトの改善点を特定するための質問を生成
-*   **Commentator**: シミュレーション結果と質問に対する回答を評価し、プロンプトの改善点を提案
-*   **Reflector**: Commentatorの提案に基づいて、プロンプトを改善
-
 ## 使用技術
 
 *   **プログラミング言語**: Python 3.10+
@@ -103,21 +85,37 @@ Minstrel-JPは、以下のAIエージェントが連携して動作します。
 
 ```
 Minstrel-jp/
-├── app.py                    # メインアプリケーション
-├── showcases/
-│   └── generate.py          # プロンプト生成UI
-├── modules/                 # モジュール生成関数
-│   ├── get_modules.py      # モジュール分析
-│   ├── background.py       # 背景モジュール
-│   ├── command.py          # 命令モジュール
-│   ├── constraints.py      # 制約モジュール
-│   ├── goal.py             # 目標モジュール
-│   ├── initialization.py   # 初期化モジュール
-│   ├── output_format.py    # 出力形式モジュール
-│   ├── skills.py           # スキルモジュール
-│   ├── suggestion.py       # 提案モジュール
-│   └── workflow.py         # ワークフローモジュール
-└── requirements.txt         # 依存パッケージ
+├── app.py                      # メインアプリケーション
+├── README.md                   # プロジェクト説明
+├── requirements.txt            # 依存パッケージ
+├── agents/                     # エージェント関連
+│   ├── agent_commentators.py  # コメンテーターエージェント
+│   ├── agent_reflector.py     # リフレクターエージェント
+│   └── models/                # エージェント用モデル
+│       ├── openai.py          # OpenAI モデル
+│       └── transformers.py    # Transformers モデル
+├── lp/                        # ランディングページ
+│   ├── index.html            # HTMLファイル
+│   ├── script.js             # JavaScriptファイル
+│   └── style.css             # CSSファイル
+├── models/                    # モデル関連
+│   ├── openai.py             # OpenAI モデル
+│   └── transformers.py       # Transformers モデル
+├── modules/                   # モジュール生成関数
+│   ├── get_modules.py        # モジュール分析
+│   ├── background.py         # 背景モジュール
+│   ├── command.py            # 命令モジュール
+│   ├── constraints.py        # 制約モジュール
+│   ├── goal.py               # 目標モジュール
+│   ├── initialization.py     # 初期化モジュール
+│   ├── output_format.py      # 出力形式モジュール
+│   ├── skills.py             # スキルモジュール
+│   ├── suggestion.py         # 提案モジュール
+│   └── workflow.py           # ワークフローモジュール
+└── showcases/                 # サンプル・デモ
+    ├── generate.py           # プロンプト生成UI
+    ├── noticecomplete.py     # 完了通知
+    └── test.py               # テストファイル
 ```
 
 ## 参考文献
