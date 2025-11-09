@@ -62,10 +62,25 @@ def generate():
         state.author = st.text_input("作成者","",help="あなたのお名前を入力できます。空欄でも問題ありません。")
         state.version = st.number_input("バージョン",min_value=0.1,value=0.1,step=0.1,help="プロンプトのバージョン。改善の度に0.1ずつ更新されます。")
         state.description = st.text_area("概要","",height=100,help="もし特記事項があれば入力してください。")
+        
+        st.divider()
+        if st.button("🔄 全てリセット", use_container_width=True, type="secondary"):
+            # セッションステートの主要な変数をクリア
+            keys_to_clear = [
+                "current_phase", "role_name", "author", "version", "description",
+                "input", "module_messages", "modules", "on_modules", "prompt",
+                "background", "command", "suggesstion", "goal", "examples",
+                "constraints", "workflow", "output_format", "skills", "style",
+                "initialization"
+            ]
+            for key in keys_to_clear:
+                if key in state:
+                    del state[key]
+            st.rerun()
         pass
     
-    # メイン画面を3列に分割（左:5, 中央:1, 右:5）
-    left_col, center_col, right_col = st.columns([5, 1, 5])
+    # メイン画面を3列に分割
+    left_col, center_col, right_col = st.columns([7, 0.5, 7])
     
     with left_col:
         st.subheader("ワークフロー")
@@ -159,13 +174,13 @@ def generate():
                 disabled=state.current_phase != 3
             )
             
-            ## プロンプト合成ボタンが押されたとき
+                        ## プロンプト合成ボタンが押されたとき
             if compose_button:
                 with st.spinner("プロンプトを作成中..."):
                     if "prompt" not in state:
                         state.prompt = "" ## プロンプト初期化
                         pass
-                    ## 入力された基本情報（役割、作成者、バージョン、説明）をプロンプトに追加
+                    ## 入力された基本情報(役割、作成者、バージョン、説明)をプロンプトに追加
                     if state.role_name:
                         state.prompt += f"# 役割: {state.role_name}\n"
                         pass
@@ -185,7 +200,6 @@ def generate():
                             if key not in state:
                                 st.error(f"先に{module_name_dict[key]}を生成してください")
                                 return
-                        else:
                             ## 生成されたモジュールをプロンプトに追加
                             if key == "examples":
                                 state.prompt += f"## {module_name_dict[key]}\n"
@@ -195,11 +209,13 @@ def generate():
                                 state.prompt += f"### 出力\n"
                                 state.prompt += state.examples["output"]
                                 state.prompt += "\n\n"
-                            state.prompt += f"## {key}\n"
-                            state.prompt += json.dumps(state[key], ensure_ascii=False, indent=2)
-                            state.prompt += "\n\n"
-                            state.current_phase = 4
-                            state.page = "test"
+                            else:
+                                state.prompt += f"## {module_name_dict[key]}\n"
+                                state.prompt += json.dumps(state[key], ensure_ascii=False, indent=2)
+                                state.prompt += "\n\n"
+                    
+                    state.current_phase = 4
+                    state.page = "noticecomplete"
                     pass
                 st.rerun()
     
@@ -233,9 +249,32 @@ def generate():
                 with st.container(border=True):
                     state.on_modules[key] = st.toggle(module_name_dict[key], state.modules[key])
                 
+                    # examplesモジュールがオンの場合の入力フォーム
+                    if key == "examples" and state.on_modules[key]:
+                        st.markdown("**タスクのサンプルを提供してください:**")
+                        input_example = st.text_area("サンプル入力", "", key=f"input_example_{key}", height=100)
+                        output_example = st.text_area("サンプル出力", "", key=f"output_example_{key}", height=100)
+                        if input_example or output_example:
+                            state.examples = {
+                                "input": input_example,
+                                "output": output_example
+                            }
+                    
+                    # styleモジュールがオンの場合の入力フォーム
+                    elif key == "style" and state.on_modules[key]:
+                        st.markdown("**返信のスタイルを指定してください:**")
+                        style = st.text_input(
+                            "スタイル", 
+                            "", 
+                            help="例: 公式、ユーモア、真面目など",
+                            key=f"style_input_{key}"
+                        )
+                        if style:
+                            state.style = style
+                    
                     # トグルがオンで、モジュールが生成されている場合は内容を表示
-                    if state.on_modules[key] and key in state:
-                        with st.expander(f"📝", expanded=False):
+                    elif state.on_modules[key] and key in state:
+                        with st.expander(f"内容を確認", expanded=False):
                             st.text_area(
                                 module_name_dict[key],
                                 state[key],
