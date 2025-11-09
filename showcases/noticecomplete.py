@@ -1,10 +1,10 @@
 import sys
 import os
 abs_path = os.getcwd()
-sys.path.append(abs_path) # Adds higher directory to python modules path.
+sys.path.append(abs_path)
 
 import streamlit as st
-import pyperclip
+import streamlit.components.v1 as components
 
 ## プロンプト生成完了通知ページ
 def noticecomplete():
@@ -33,16 +33,39 @@ def noticecomplete():
                     label_visibility="visible"
                 )
                 
-                # コピーボタン
-                if st.button("📋 プロンプトをコピー", use_container_width=True):
-                    try:
-                        pyperclip.copy(state.prompt)
-                        st.success("プロンプトをクリップボードにコピーしました！")
-                    except:
-                        st.error("コピーに失敗しました。手動でコピーしてください。")
+                # JavaScriptを使ったコピーボタン
+                copy_button_html = f"""
+                <script>
+                function copyToClipboard() {{
+                    const text = `{state.prompt.replace('`', '//`').replace('$', '//$')}`;
+                    navigator.clipboard.writeText(text).then(function() {{
+                        const btn = document.getElementById('copy-btn');
+                        btn.innerHTML = '✅ コピーしました！';
+                        btn.style.backgroundColor = '#28a745';
+                        setTimeout(function() {{
+                            btn.innerHTML = '📋 プロンプトをコピー';
+                            btn.style.backgroundColor = '#0068c9';
+                        }}, 2000);
+                    }}, function(err) {{
+                        alert('コピーに失敗しました');
+                    }});
+                }}
+                </script>
+                <button id="copy-btn" onclick="copyToClipboard()" style="
+                    width: 100%;
+                    padding: 0.5rem 1rem;
+                    background-color: #0068c9;
+                    color: white;
+                    border: none;
+                    border-radius: 0.5rem;
+                    cursor: pointer;
+                    font-size: 1rem;
+                    margin-top: 0.5rem;
+                ">📋 プロンプトをコピー</button>
+                """
+                components.html(copy_button_html, height=60)
             else:
                 st.warning("プロンプトが生成されていません")
-            
         
         st.markdown("")
         

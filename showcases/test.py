@@ -1,10 +1,9 @@
 import sys
 import os
 abs_path = os.getcwd()
-sys.path.append(abs_path)
+sys.path.append(abs_path) # Adds higher directory to python modules path.
 from models.openai import Generator
 import streamlit as st
-import streamlit.components.v1 as components
 
 ## コメンテーターエージェント
 from agents.agent_commentators import Commentators
@@ -28,49 +27,29 @@ def test():
             label_visibility="collapsed"
         )
         
-        ## コピーボタンを追加
-        col_btn1, col_btn2 = st.columns([1, 1])
-        with col_btn1:
-            if st.button("📋 プロンプトをコピー", use_container_width=True, type="secondary"):
-                # JavaScriptでクリップボードにコピー
-                # バックティックをエスケープ
-                escaped_prompt = state.prompt.replace('`', '\\`').replace('\\', '\\\\').replace('\n', '\\n')
-                copy_script = f"""
-                <script>
-                navigator.clipboard.writeText(`{escaped_prompt}`).then(function() {{
-                    console.log('Copied to clipboard');
-                }}, function(err) {{
-                    console.error('Could not copy text: ', err);
-                }});
-                </script>
-                """
-                components.html(copy_script, height=0)
-                st.toast("プロンプトをコピーしました", icon="✅")
-        
-        with col_btn2:
-            ## メッセージを生成済みの場合のみボタンを表示
-            if st.button("プロンプトを分析＆改善", use_container_width=True):
-                with st.spinner("プロンプトを分析＆改善中..."):
-                    ## 現在のプロンプトを履歴として保存
-                    if "prompt_history" not in state:
-                        state.prompt_history = []
-                    state.prompt_history.append(state.prompt)
-                    
-                    ## ここでコメンテーターエージェントに接続する！
-                    print("【メインシステム】プロンプトを受け付けました。コメンテーターエージェントに接続中．．．") # デバッグ
-                    commentators = Commentators( ## 初期値定義できる
-                        requirement = state.input,
-                        prompt = state.prompt,
-                        answer = state.response
-                    )
-                    ## 5つのコメンテーターエージェントからコメントを取得
-                    comment_criticize_1 = commentators.com_agent_criticize_1()
-                    comment_criticize_2 = commentators.com_agent_criticize_2()
-                    comment_favor_1 = commentators.com_agent_favor_1()
-                    comment_favor_2 = commentators.com_agent_favor_2()
-                    comment_natural = commentators.com_agent_natural()
-                    ## 5つのコメントをまとめる
-                    comment_overall = f"""
+        ## メッセージを生成済みの場合のみボタンを表示
+        if st.button("プロンプトを分析＆改善", use_container_width=True):
+            with st.spinner("プロンプトを分析＆改善中..."):
+                ## 現在のプロンプトを履歴として保存
+                if "prompt_history" not in state:
+                    state.prompt_history = []
+                state.prompt_history.append(state.prompt)
+                
+                ## ここでコメンテーターエージェントに接続する！
+                print("【メインシステム】プロンプトを受け付けました。コメンテーターエージェントに接続中．．．") # デバッグ
+                commentators = Commentators( ## 初期値定義できる
+                    requirement = state.input,
+                    prompt = state.prompt,
+                    answer = state.response
+                )
+                ## 5つのコメンテーターエージェントからコメントを取得
+                comment_criticize_1 = commentators.com_agent_criticize_1()
+                comment_criticize_2 = commentators.com_agent_criticize_2()
+                comment_favor_1 = commentators.com_agent_favor_1()
+                comment_favor_2 = commentators.com_agent_favor_2()
+                comment_natural = commentators.com_agent_natural()
+                ## 5つのコメントをまとめる
+                comment_overall = f"""
 ------------------------------------------------------------------
 コメント1（批判的）
 {comment_criticize_1}
@@ -87,27 +66,27 @@ def test():
 コメント5（中立的）
 {comment_natural}
 ------------------------------------------------------------------
-                """
-                    print("【コメンテーターエージェント】：コメントを作成しました。リフレクターエージェントに接続中...") ## デバッグ
+            """
+                print("【コメンテーターエージェント】：コメントを作成しました。リフレクターエージェントに接続中...") ## デバッグ
 
-                    ## まとめたコメントをリフレクターエージェントに接続する
-                    reflector = Reflector(
-                        prompt = state.prompt,
-                        comment = comment_overall
-                    )
+                ## まとめたコメントをリフレクターエージェントに接続する
+                reflector = Reflector(
+                    prompt = state.prompt,
+                    comment = comment_overall
+                )
 
-                    ## プロンプトを書き換えて表示
-                    state.prompt = reflector.ref_agent()
-                    print(f""" 
+                ## プロンプトを書き換えて表示
+                state.prompt = reflector.ref_agent()
+                print(f""" 
 ----------------------------------------------------------------------
 {state.prompt}
 ----------------------------------------------------------------------
 【リフレクターエージェント】：コメントを反映し、プロンプトを改善しました。
-                """) ##デバッグ用
-                    
-                    print("【メインシステム】新しいプロンプトでの回答が生成されました。") ##デバッグ用
+            """) ##デバッグ用
+                
+                print("【メインシステム】新しいプロンプトでの回答が生成されました。") ##デバッグ用
 
-                st.rerun() ## stateをと表示内容を同期
+            st.rerun() ## stateをと表示内容を同期
 
         ## 1つ前のバージョンを表示
         if "prompt_history" in state and len(state.prompt_history) > 0:
