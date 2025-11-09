@@ -2,6 +2,9 @@
 
  [こちら](https://minstrel-jp-lp.netlify.app/)からランディングページにアクセスできます。
 
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3ef19346-50e6-448a-927b-f4b64d65c6f7" />
+
+
 Minstrel-JPは、生成AIへのプロンプト作成を自動化するプロンプトエンジニアリングツールです。ユーザーのタスク要求を分析し、LangGPTフレームワークに基づいた構造化プロンプトを自動生成します。
 
 ## 主な機能
