@@ -46,7 +46,7 @@ def test():
         )
         
         ## メッセージを生成済みの場合のみボタンを表示
-        if st.button("プロンプトを分析＆改善", use_container_width=True):
+        if st.button("プロンプトを分析＆改善", use_container_width=True, type="primary"):
             with st.spinner("プロンプトを分析＆改善中..."):
                 ## 現在のプロンプトを履歴として保存
                 if "prompt_history" not in state:
