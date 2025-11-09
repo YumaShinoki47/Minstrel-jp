@@ -14,6 +14,24 @@ from agents.agent_reflector import Reflector
 def test():
     state = st.session_state
     
+    ## サイドバーに「はじめに戻る」ボタンを追加
+    with st.sidebar:
+        
+        if st.button("⬅　1つ前に戻る", use_container_width=True, type="primary"):
+            state.page = "noticecomplete"
+            st.rerun()
+        
+        if st.button("🏠　はじめに戻る", use_container_width=True, type="secondary"):
+            # セッション状態を初期化
+            keys_to_keep = ['generator']  # generatorだけは保持
+            keys_to_delete = [key for key in state.keys() if key not in keys_to_keep]
+            for key in keys_to_delete:
+                del state[key]
+            
+            state.current_phase = 1
+            state.page = "generate"
+            st.rerun()
+    
     # 画面を2分割
     col_left, col_middle, col_right = st.columns([7, 0.5, 7])
     

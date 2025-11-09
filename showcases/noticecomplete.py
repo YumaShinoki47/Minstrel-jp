@@ -74,7 +74,7 @@ def noticecomplete():
         
         with col_btn1:
             if st.button(
-                "← 編集画面に戻る",
+                "⬅　編集画面に戻る",
                 use_container_width=True,
                 type="secondary"
             ):
@@ -84,7 +84,7 @@ def noticecomplete():
         
         with col_btn2:
             if st.button(
-                "実際に試す →",
+                "実際に試す　➡",
                 use_container_width=True,
                 type="primary"
             ):
@@ -98,8 +98,6 @@ def noticecomplete():
         
         # サイドバー情報
         with st.sidebar:
-            st.title("Minstrel JP")
-            st.divider()
             
             st.subheader("📋 プロンプト情報")
             

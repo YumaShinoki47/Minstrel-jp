@@ -107,31 +107,7 @@ def generate():
                     state.modules = get_modules(state.generator, state.module_messages)
                     state.current_phase = 2
                 st.rerun()
-        
-        # if "modules" in state:
-        #     if state.on_modules["examples"]: ## 「タスクのサンプル」モジュールがオンになったとき
-        #         st.subheader("タスクのサンプルを提供してください：")
-        #         input_example = st.text_area("サンプル入力","")
-        #         output_example = st.text_area("サンプル出力","")
-        #         state.examples = {
-        #             "input": input_example,
-        #             "output": output_example
-        #         }
-        #         pass
-        #     if state.on_modules["style"]: ## 「スタイル」モジュールがオンになったとき
-        #         st.subheader("返信のスタイルを指定してください：")
-        #         style = st.text_input("スタイル","",help="例: 公式、ユーモア、真面目など",label_visibility="collapsed")
-        #         state.style = style
-        #         pass
-            ## 生成されたモジュールの表示と編集（既にモジュールが生成されてる）
-            # for key in state.modules.keys():
-            #     if key in state: ## state[key]に指定されたモジュールの内容が格納されている
-            #         if state.on_modules[key]:
-            #             with st.expander(module_name_dict[key]):
-            #                 st.text_area(module_name_dict[key],state[key],label_visibility="collapsed")
-            #                 pass
-            #     pass
-            
+                    
         ## ステップ2: モジュール生成（カード化）
         phase2_status = "✅" if state.current_phase > 2 else "⬜"
         with st.container(border=True):
@@ -176,52 +152,54 @@ def generate():
             
                         ## プロンプト合成ボタンが押されたとき
             if compose_button:
-                with st.spinner("プロンプトを作成中..."):
-                    if "prompt" not in state:
-                        state.prompt = "" ## プロンプト初期化
-                        pass
-                    ## 入力された基本情報(役割、作成者、バージョン、説明)をプロンプトに追加
-                    if state.role_name:
-                        state.prompt += f"# 役割: {state.role_name}\n"
-                        pass
-                    state.prompt += f"## プロフィール\n"
-                    if state.author:
-                        state.prompt += f"- 作成者: {state.author}\n"
-                        pass
-                    if state.version:
-                        state.prompt += f"- バージョン: {state.version}\n"
-                        pass
-                    if state.description:
-                        state.prompt += f"- 説明: {state.description}\n"
-                        pass
-                    ## チェックしたモジュールがすべて生成されているかチェックする
-                    for key in state.modules.keys():
-                        if state.on_modules[key]:
-                            if key not in state:
-                                st.error(f"先に{module_name_dict[key]}を生成してください")
-                                return
-                            ## 生成されたモジュールをプロンプトに追加
-                            if key == "examples":
-                                state.prompt += f"## {module_name_dict[key]}\n"
-                                state.prompt += f"### 入力\n"
-                                state.prompt += state.examples["input"]
-                                state.prompt += "\n"
-                                state.prompt += f"### 出力\n"
-                                state.prompt += state.examples["output"]
-                                state.prompt += "\n\n"
-                            else:
-                                state.prompt += f"## {module_name_dict[key]}\n"
-                                state.prompt += json.dumps(state[key], ensure_ascii=False, indent=2)
-                                state.prompt += "\n\n"
-                    
-                    state.current_phase = 4
-                    state.page = "noticecomplete"
-                    pass
-                st.rerun()
-    
-    with center_col:
-        # 中央列は空白（マージン用）
-        pass
+                # チェックしたモジュールがすべて生成されているかチェックする
+                missing_modules = []
+                for key in state.modules.keys():
+                    if state.on_modules[key]:
+                        if key not in state:
+                            missing_modules.append(module_name_dict[key])
+                
+                if missing_modules:
+                    st.error(f"「{', '.join(missing_modules)}」モジュールを編集してから進んでください")
+                else:
+                    with st.spinner("プロンプトを作成中..."):
+                        if "prompt" not in state:
+                            state.prompt = "" ## プロンプト初期化
+                            pass
+                        ## 入力された基本情報(役割、作成者、バージョン、説明)をプロンプトに追加
+                        if state.role_name:
+                            state.prompt += f"# 役割: {state.role_name}\n"
+                            pass
+                        state.prompt += f"## プロフィール\n"
+                        if state.author:
+                            state.prompt += f"- 作成者: {state.author}\n"
+                            pass
+                        if state.version:
+                            state.prompt += f"- バージョン: {state.version}\n"
+                            pass
+                        if state.description:
+                            state.prompt += f"- 説明: {state.description}\n"
+                            pass
+                        ## 生成されたモジュールをプロンプトに追加
+                        for key in state.modules.keys():
+                            if state.on_modules[key]:
+                                ## 生成されたモジュールをプロンプトに追加
+                                if key == "examples":
+                                    state.prompt += f"## {module_name_dict[key]}\n"
+                                    state.prompt += f"### 入力\n"
+                                    state.prompt += state.examples["input"]
+                                    state.prompt += "\n"
+                                    state.prompt += f"### 出力\n"
+                                    state.prompt += state.examples["output"]
+                                    state.prompt += "\n\n"
+                                else:
+                                    state.prompt += f"## {module_name_dict[key]}\n"
+                                    state.prompt += json.dumps(state[key], ensure_ascii=False, indent=2)
+                                    state.prompt += "\n\n"
+                        
+                        state.current_phase = 4
+                        state.page = "noticecomplete"
+                    st.rerun()
     
     with right_col:
         st.subheader("モジュール制御")
