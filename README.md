@@ -2,6 +2,8 @@
 
  [こちら](https://minstrel-jp-lp.netlify.app/)からランディングページにアクセスできます。
 
+<img width="1900" height="868" alt="image" src="https://github.com/user-attachments/assets/94919e8a-9d3c-4eaf-a248-27b027d01cf7" />
+
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3ef19346-50e6-448a-927b-f4b64d65c6f7" />
 
 
