@@ -1,5 +1,7 @@
 # Minstrel-JP: 自動プロンプトエンジニアリングツール
 
+Minstrel-JPは、生成AIへのプロンプト作成を自動化するプロンプトエンジニアリングツールです。ユーザーのタスク要求を分析し、LangGPTフレームワークに基づいた構造化プロンプトを自動生成します。
+
  [こちら](https://minstrel-jp-lp.netlify.app/)からランディングページにアクセスできます。
 
 <img width="1900" height="868" alt="image" src="https://github.com/user-attachments/assets/94919e8a-9d3c-4eaf-a248-27b027d01cf7" />
@@ -7,29 +9,21 @@
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3ef19346-50e6-448a-927b-f4b64d65c6f7" />
 
 
-Minstrel-JPは、生成AIへのプロンプト作成を自動化するプロンプトエンジニアリングツールです。ユーザーのタスク要求を分析し、LangGPTフレームワークに基づいた構造化プロンプトを自動生成します。
+## ツールのご紹介
 
-## 主な機能
+「生成AIに大きなタスクを任せよう！...でも、どんなプロンプトがいいかな？うまくできる気がしないな...」
+こんな時はありませんか？プロンプトを作るのって難しいですよね。Minstrel-JPは、そんなあなたのためのツールです。！
+このツールを使えば、あなたは簡単な指示を入力するだけで、複雑なプロンプトにAIが自動で拡張してくれます。
 
-### 3ステップワークフロー
+### プロンプトフレームワーク「LangGPT」に基づくプロダクト改善
+
+Minstrel-JPは、ただ単にプロンプトを拡張するだけではありません。論文として発表されている[LangGPTフレームワーク](https://arxiv.org/abs/2409.13449)に基づき、構造化された再利用可能なプロンプトモジュールを生成します。これにより、プロンプトの品質と一貫性が向上し、様々なタスクに対応可能です。
+
+## 簡単3ステップ
 
 1. **タスク分析**: タスクの説明を入力すると、必要なプロンプトモジュールを自動で特定
 2. **モジュール生成**: 選択したモジュールの内容を自動生成
 3. **プロンプト作成**: 生成したモジュールを統合して完成したプロンプトを作成
-
-### 11種類のモジュールサポート
-
-- **背景 (Background)**: タスクの背景情報
-- **命令 (Command)**: 具体的な実行命令
-- **提案 (Suggestion)**: 推奨事項やヒント
-- **目標 (Goal)**: タスクの目的
-- **タスクのサンプル (Examples)**: 入出力のサンプル
-- **制約 (Constraints)**: 制限事項や注意点
-- **ワークフロー (Workflow)**: 実行手順
-- **出力形式 (Output Format)**: 期待される出力の形式
-- **スキル (Skills)**: 必要な能力
-- **スタイル (Style)**: 応答のトーン
-- **初期化 (Initialization)**: 初期設定
 
 ## 使用方法
 
@@ -122,4 +116,5 @@ Minstrel-jp/
 
 ## 参考文献
 
-- [LangGPT: Rethinking Structured Reusable Prompt Design Framework](https://arxiv.org/abs/2409.13449)
+- [LangGPT: Rethinking Structured Reusable Prompt Design Framework for LLMs from the Programming Language](https://arxiv.org/pdf/2402.16929)
+- [Minstrel: Structural Prompt Generation with Multi-Agents Coordination for Non-AI Experts](https://arxiv.org/pdf/2409.13449)
